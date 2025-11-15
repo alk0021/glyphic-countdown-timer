@@ -12,7 +12,7 @@
         }
 
         body {
-            background: #000;
+            background: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,12 +24,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
+            gap: 15px;
         }
 
         .title {
             color: #fff;
-            font-size: 32px;
+            font-size: 20px;
             font-weight: bold;
             text-align: center;
             letter-spacing: 2px;
@@ -37,26 +37,26 @@
 
         .countdown-container {
             display: flex;
-            gap: 20px;
-            padding: 40px;
+            gap: 10px;
+            padding: 15px;
         }
 
         .time-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
         }
 
         .flip-card-container {
             display: flex;
-            gap: 5px;
+            gap: 3px;
         }
 
         .flip-card {
             position: relative;
-            width: 60px;
-            height: 80px;
+            width: 38px;
+            height: 50px;
         }
 
         .flip-card-face {
@@ -64,24 +64,14 @@
             height: 100%;
             background: #1a1a1a;
             border: 2px solid #333;
-            border-radius: 8px;
+            border-radius: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
+            font-size: 30px;
             font-weight: bold;
             color: #fff;
             position: relative;
-        }
-
-        .flip-card-face::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 1px;
-            background: #000;
-            top: 50%;
-            left: 0;
         }
 
         .flip-card-face::after {
@@ -92,53 +82,53 @@
             top: 0;
             left: 0;
             background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent);
-            border-radius: 8px 8px 0 0;
+            border-radius: 5px 5px 0 0;
         }
 
         .label {
             color: #666;
-            font-size: 14px;
+            font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 10px;
+            letter-spacing: 1px;
+            margin-top: 5px;
         }
 
         .colon {
-            font-size: 48px;
+            font-size: 30px;
             color: #666;
             align-self: center;
-            padding: 0 10px;
-            margin-top: -30px;
+            padding: 0 6px;
+            margin-top: -18px;
         }
 
         @media (max-width: 768px) {
             .title {
-                font-size: 24px;
+                font-size: 16px;
                 padding: 0 20px;
             }
 
             .countdown-container {
-                gap: 10px;
-                padding: 20px;
+                gap: 6px;
+                padding: 12px;
                 flex-wrap: wrap;
             }
 
             .flip-card {
-                width: 45px;
-                height: 60px;
+                width: 30px;
+                height: 42px;
             }
 
             .flip-card-face {
-                font-size: 36px;
+                font-size: 24px;
             }
 
             .colon {
-                font-size: 36px;
-                padding: 0 5px;
+                font-size: 24px;
+                padding: 0 3px;
             }
 
             .label {
-                font-size: 11px;
+                font-size: 8px;
             }
         }
     </style>
@@ -230,7 +220,7 @@
 
             if (distance < 0) {
                 document.querySelector('.wrapper').innerHTML = 
-                    '<div style="color: #fff; font-size: 36px; text-align: center;">Glyphic 4.0 Has Launched!</div>';
+                    '<div style="color: #fff; font-size: 24px; text-align: center; font-weight: bold;">Glyphic 4.0 Has Launched!</div>';
                 return;
             }
 
