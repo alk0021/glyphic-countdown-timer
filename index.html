@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlyphicLA Countdown</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Courier New', monospace;
+        }
+
+        .countdown-container {
+            display: flex;
+            gap: 20px;
+            padding: 40px;
+        }
+
+        .time-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .flip-card-container {
+            display: flex;
+            gap: 5px;
+        }
+
+        .flip-card {
+            position: relative;
+            width: 60px;
+            height: 80px;
+            perspective: 300px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .flip-card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .flip-card-face::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: #000;
+            top: 50%;
+            left: 0;
+        }
+
+        .flip-card-face::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .flip-card-top,
+        .flip-card-bottom {
+            height: 50%;
+            overflow: hidden;
+        }
+
+        .flip-card-top {
+            position: absolute;
+            top: 0;
+            transform-origin: bottom;
+        }
+
+        .flip-card-bottom {
+            position: absolute;
+            bottom: 0;
+            transform-origin: top;
+        }
+
+        .flip-card-top .flip-card-face {
+            align-items: flex-end;
+            padding-bottom: 2px;
+        }
+
+        .flip-card-bottom .flip-card-face {
+            align-items: flex-start;
+            padding-top: 2px;
+        }
+
+        .flip-card.flipping .flip-card-top {
+            animation: flip-top 0.6s ease-in;
+        }
+
+        .flip-card.flipping .flip-card-bottom {
+            animation: flip-bottom 0.6s ease-out 0.3s;
+        }
+
+        @keyframes flip-top {
+            0% {
+                transform: rotateX(0deg);
+            }
+            100% {
+                transform: rotateX(-90deg);
+            }
+        }
+
+        @keyframes flip-bottom {
+            0% {
+                transform: rotateX(90deg);
+            }
+            100% {
+                transform: rotateX(0deg);
+            }
+        }
+
+        .label {
+            color: #666;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        .colon {
+            font-size: 48px;
+            color: #666;
+            align-self: center;
+            padding: 0 10px;
+            margin-top: -30px;
+        }
+
+        @media (max-width: 768px) {
+            .countdown-container {
+                gap: 10px;
+                padding: 20px;
+                flex-wrap: wrap;
+            }
+
+            .flip-card {
+                width: 45px;
+                height: 60px;
+            }
+
+            .flip-card-face {
+                font-size: 36px;
+            }
+
+            .colon {
+                font-size: 36px;
+                padding: 0 5px;
+            }
+
+            .label {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <div class="time-section">
+            <div class="flip-card-container">
+                <div class="flip-card" id="days-tens">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-top">
+                            <div class="flip-card-face">
+                                <span id="days-tens-top">0</span>
+                            </div>
+                        </div>
+                        <div class="flip-card-bottom">
+                            <div class="flip-card-face">
+                                <span id="days-tens-bottom">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card" id="days-ones">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-top">
+                            <div class="flip-card-face">
+                                <span id="days-ones-top">0</span>
+                            </div>
+                        </div>
+                        <div class="flip-card-bottom">
+                            <div class="flip-card-face">
+                                <span id="days-ones-bottom">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="label">Days</div>
+        </div>
+
+        <div class="colon">:</div>
+
+        <div class="time-section">
+            <div class="flip-card-container">
+                <div class="flip-card" id="hours-tens">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-top">
+                            <div class="flip-card-face">
+                                <span id="hours-tens-top">0</span>
+                            </div>
+                        </div>
+                        <div class="flip-card-bottom">
+                            <div class="flip-card-face">
+                                <span id="hours-tens-bottom">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card" id="hours-ones">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-top">
+                            <div class="flip-card-face">
+                                <span id="hours-ones-top">0</span>
+                            </div>
+                        </div>
+                        <div class="flip-card-bottom">
+                            <div class="flip-card-face">
+                                <span id="hours-ones-bottom">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="label">Hours</div>
+        </div>
+
+        <div class="colon">:</div>
+
+        <div class="time-section">
+            <div class="flip-card-container">
+                <div class="flip-card" id="minutes-tens">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-top">
+                            <div class="flip-card-face">
+                                <span id="minutes-tens-top">0</span>
+                            </div>
+                        </div>
+                        <div class="flip-card-bottom">
+                            <div class="flip-card-face">
+                                <span id="minutes-tens-bottom">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card" id="minutes-ones">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-top">
+                            <div class="flip-card-face">
+                                <span id="minutes-ones-top">0</span>
+                            </div>
+                        </div>
+                        <div class="flip-card-bottom">
+                            <div class="flip-card-face">
+                                <span id="minutes-ones-bottom">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="label">Minutes</div>
+        </div>
+
+        <div class="colon">:</div>
+
+        <div class="time-section">
+            <div class="flip-card-container">
+                <div class="flip-card" id="seconds-tens">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-top">
+                            <div class="flip-card-face">
+                                <span id="seconds-tens-top">0</span>
+                            </div>
+                        </div>
+                        <div class="flip-card-bottom">
+                            <div class="flip-card-face">
+                                <span id="seconds-tens-bottom">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card" id="seconds-ones">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-top">
+                            <div class="flip-card-face">
+                                <span id="seconds-ones-top">0</span>
+                            </div>
+                        </div>
+                        <div class="flip-card-bottom">
+                            <div class="flip-card-face">
+                                <span id="seconds-ones-bottom">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="label">Seconds</div>
+        </div>
+    </div>
+
+    <script>
+        // Set the target date - January 6, 2026 at 6:00 PM (18:00)
+        // Assuming PST timezone for LA event
+        const targetDate = new Date('2026-01-06T18:00:00-08:00').getTime();
+
+        let previousValues = {
+            daysTens: -1,
+            daysOnes: -1,
+            hoursTens: -1,
+            hoursOnes: -1,
+            minutesTens: -1,
+            minutesOnes: -1,
+            secondsTens: -1,
+            secondsOnes: -1
+        };
+
+        function updateFlipCard(id, newValue, previousValue) {
+            const card = document.getElementById(id);
+            const topSpan = document.getElementById(`${id}-top`);
+            const bottomSpan = document.getElementById(`${id}-bottom`);
+
+            if (newValue !== previousValue) {
+                // Add flipping animation
+                card.classList.add('flipping');
+                
+                // Update the numbers
+                topSpan.textContent = newValue;
+                bottomSpan.textContent = newValue;
+
+                // Remove animation class after animation completes
+                setTimeout(() => {
+                    card.classList.remove('flipping');
+                }, 600);
+            }
+        }
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                // Event has started
+                document.querySelector('.countdown-container').innerHTML = '<div style="color: #fff; font-size: 36px; text-align: center;">Event Started!</div>';
+                return;
+            }
+
+            // Calculate time units
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Split into tens and ones
+            const daysTens = Math.floor(days / 10);
+            const daysOnes = days % 10;
+            const hoursTens = Math.floor(hours / 10);
+            const hoursOnes = hours % 10;
+            const minutesTens = Math.floor(minutes / 10);
+            const minutesOnes = minutes % 10;
+            const secondsTens = Math.floor(seconds / 10);
+            const secondsOnes = seconds % 10;
+
+            // Update each flip card
+            updateFlipCard('days-tens', daysTens, previousValues.daysTens);
+            updateFlipCard('days-ones', daysOnes, previousValues.daysOnes);
+            updateFlipCard('hours-tens', hoursTens, previousValues.hoursTens);
+            updateFlipCard('hours-ones', hoursOnes, previousValues.hoursOnes);
+            updateFlipCard('minutes-tens', minutesTens, previousValues.minutesTens);
+            updateFlipCard('minutes-ones', minutesOnes, previousValues.minutesOnes);
+            updateFlipCard('seconds-tens', secondsTens, previousValues.secondsTens);
+            updateFlipCard('seconds-ones', secondsOnes, previousValues.secondsOnes);
+
+            // Store current values for next comparison
+            previousValues = {
+                daysTens,
+                daysOnes,
+                hoursTens,
+                hoursOnes,
+                minutesTens,
+                minutesOnes,
+                secondsTens,
+                secondsOnes
+            };
+        }
+
+        // Initial update
+        updateCountdown();
+
+        // Update every second
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
